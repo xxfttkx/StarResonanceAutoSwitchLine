@@ -7,6 +7,7 @@ from utils import *
 import asyncio
 from auto_switch_line_controller import AutoSwitchLineController
 
+sys.stdout.reconfigure(encoding='utf-8')
 app = FastAPI()
 controller = AutoSwitchLineController(find_target_window())
 
@@ -19,8 +20,7 @@ def add_line(data: dict):
     return {"status": "done"}
 
 if __name__ == "__main__":
-    sys.stdout.reconfigure(encoding='utf-8')
-    keyboard.add_hotkey('-', lambda: controller.switch_auto_switch_line)
+    keyboard.add_hotkey('-', controller.switch_auto_switch_line)
     keyboard.add_hotkey('/', controller.exit_program)
     uvicorn.run(
         app,
