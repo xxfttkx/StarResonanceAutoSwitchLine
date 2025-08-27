@@ -15,8 +15,8 @@ controller = AutoSwitchLineController(find_target_window())
 def add_line(data: dict):
     line = data["line"]
     pos = data["pos"]
-    log(f"Received line {line} with position {pos}")
-    asyncio.create_task(controller.switch_line(line))
+    log(f"{line}{pos}: ✅")
+    controller.switch_line(line)
     return {"status": "done"}
 
 if __name__ == "__main__":
