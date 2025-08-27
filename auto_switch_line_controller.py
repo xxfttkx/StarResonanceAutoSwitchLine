@@ -18,6 +18,14 @@ class AutoSwitchLineController:
     def switch_auto_switch_line(self):
         self.auto_switch = not self.auto_switch
         log(f"自动切线状态切换为: {'开启' if self.auto_switch else '关闭'}")
+    
+    def switch_open_auto_switch_line(self):
+        if not self.auto_switch:
+            self.switch_auto_switch_line()
+    
+    def switch_close_auto_switch_line(self):
+        if self.auto_switch:
+            self.switch_auto_switch_line()
 
     def exit_program(self):
         log("检测到 / 键，退出程序")
