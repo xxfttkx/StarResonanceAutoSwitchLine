@@ -22,7 +22,6 @@ def add_line(data: dict):
 if __name__ == "__main__":
     keyboard.add_hotkey('-', controller.switch_open_auto_switch_line)
     keyboard.add_hotkey('*', controller.switch_close_auto_switch_line)
-    keyboard.add_hotkey('/', controller.exit_program)
     uvicorn.run(
         app,
         host="0.0.0.0",
