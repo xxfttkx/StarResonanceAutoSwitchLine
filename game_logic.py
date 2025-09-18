@@ -5,16 +5,6 @@ import time
 def switch_line(win, line):
     """激活窗口并切换线路"""
     try:
-        if not win.isActive:
-            pyautogui.press("alt")
-            win.activate()
-            # win32gui.ShowWindow(win._hWnd, win32con.SW_RESTORE)
-            # win32gui.SetForegroundWindow(win._hWnd)
-            time.sleep(0.2)  # 稍等窗口激活
-    except Exception as e:
-        log(f"activate_win failed:{e}")
-
-    try:
         # # 按下切线快捷键 p
         # pyautogui.press('p')
         # time.sleep(0.5)  # 等待切线面板弹出
