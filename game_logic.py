@@ -5,10 +5,6 @@ import time
 def switch_line(win, line):
     """激活窗口并切换线路"""
     try:
-        # # 按下切线快捷键 p
-        # pyautogui.press('p')
-        # time.sleep(0.5)  # 等待切线面板弹出
-        
         # 点击线路输入框（根据实际位置修改）
         input_box_pos = (1492,1007)  # 示例为屏幕中心，请替换为实际坐标
         input_box_pos = get_scale_point(input_box_pos, *get_window_width_and_height(win))
