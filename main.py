@@ -1,10 +1,11 @@
 # 后端 Flask / FastAPI
 from fastapi import FastAPI
 import sys
-import keyboard
+
 import uvicorn
 from utils import *
 import asyncio
+import keyboard
 from auto_switch_line_controller import AutoSwitchLineController
 
 sys.stdout.reconfigure(encoding='utf-8')
