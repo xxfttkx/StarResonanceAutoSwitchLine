@@ -52,7 +52,7 @@ async def listen():
                     log(f"收到消息: {message}")
                     parsed = parse_messages(message)
                     if parsed:
-                        line = parsed[0][0]
+                        line = parsed[-1][0]
                         controller.switch_line(line)
 
 if __name__ == "__main__":
