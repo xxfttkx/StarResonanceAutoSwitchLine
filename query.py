@@ -5,6 +5,9 @@ import websockets
 import keyboard
 from auto_switch_line_controller import AutoSwitchLineController
 from utils import *
+import sys, io
+# sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+sys.stdout.reconfigure(encoding='utf-8')
 
 def parse_messages(msg: str):
     """
