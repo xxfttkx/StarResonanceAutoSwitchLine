@@ -6,6 +6,15 @@ class AutoSwitchLineController:
         self.target_window = target_window
         self.auto_switch = False
         self.first_failed = True
+        self.place = None
+    
+    def reset_place(self):
+        self.place = None
+        log("重置位置成功")
+        # screenshot_window(self.target_window)
+    
+    def set_place(self, place):
+        self.place = place
 
     def ensure_window_active(self):
         """确保目标窗口处于激活状态"""
@@ -24,7 +33,7 @@ class AutoSwitchLineController:
                     self.target_window = find_target_window()
         return False
 
-    def switch_line(self, target_line):
+    def switch_line(self, target_line, target_place = None):
         """切换线路"""
         if not self.auto_switch:
             return
@@ -34,7 +43,11 @@ class AutoSwitchLineController:
 
         if self.ensure_window_active():
             try:
-                game_logic.switch_line(self.target_window, target_line)
+                if self.place == target_place:
+                    target_place = None
+                game_logic.switch_line(self.target_window, target_line, target_place)
+                if target_place:
+                    self.set_place(target_place)
             except Exception as e:
                 log(f"热键执行失败: {e}")
 

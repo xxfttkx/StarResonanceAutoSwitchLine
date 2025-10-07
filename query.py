@@ -55,7 +55,8 @@ async def listen():
                             parsed = parse_messages(message)
                             if parsed:
                                 line = parsed[-1][0]
-                                controller.switch_line(line)
+                                pos = parsed[-1][1]
+                                controller.switch_line(line, pos)
         except Exception as e:
             log(f"连接失败或断开: {e}, 10秒后重试...")
             await asyncio.sleep(10)        
@@ -64,4 +65,5 @@ if __name__ == "__main__":
     controller = AutoSwitchLineController(find_target_window())
     keyboard.add_hotkey('-', controller.switch_open_auto_switch_line)
     keyboard.add_hotkey('*', controller.switch_close_auto_switch_line)
+    keyboard.add_hotkey('+', controller.reset_place)
     asyncio.run(listen())

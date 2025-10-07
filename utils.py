@@ -118,7 +118,7 @@ def save_screenshot(screenshot):
 
     # 保存截图
     screenshot.save(filename)
-    print(f"已保存未识别截图到: {filename}")
+    log(f"已保存截图到: {filename}")
 
 def screenshot_window(win):
     """截取指定窗口的客户区"""
