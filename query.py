@@ -32,28 +32,33 @@ TARGET_USER  = 592184299   # QQ号
 WS_URL = "ws://127.0.0.1:3001"
 
 async def listen():
-    async with websockets.connect(WS_URL) as ws:
-        log("已连接到 llonebot ws")
+    while True:  # 无限循环自动重连
+        try:
+            async with websockets.connect(WS_URL) as ws:
+                log("已连接到 llonebot ws")
 
-        # 持续监听事件
-        async for msg in ws:
-            try:
-                data = json.loads(msg)
-            except Exception:
-                continue
+                # 持续监听事件
+                async for msg in ws:
+                    try:
+                        data = json.loads(msg)
+                    except Exception:
+                        continue
 
-            # 只处理群消息
-            if data.get("post_type") == "message" and data.get("message_type") == "group":
-                group_id = data.get("group_id")
-                user_id  = data.get("user_id")
-                message  = data.get("raw_message")
+                    # 只处理群消息
+                    if data.get("post_type") == "message" and data.get("message_type") == "group":
+                        group_id = data.get("group_id")
+                        user_id  = data.get("user_id")
+                        message  = data.get("raw_message")
 
-                if user_id == TARGET_USER and group_id == TARGET_GROUP:
-                    log(f"收到消息: {message}")
-                    parsed = parse_messages(message)
-                    if parsed:
-                        line = parsed[-1][0]
-                        controller.switch_line(line)
+                        if user_id == TARGET_USER and group_id == TARGET_GROUP:
+                            log(f"收到消息: {message}")
+                            parsed = parse_messages(message)
+                            if parsed:
+                                line = parsed[-1][0]
+                                controller.switch_line(line)
+        except Exception as e:
+            log(f"连接失败或断开: {e}, 10秒后重试...")
+            await asyncio.sleep(10)        
 
 if __name__ == "__main__":
     controller = AutoSwitchLineController(find_target_window())
