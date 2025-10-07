@@ -92,7 +92,7 @@ def wait_and_press_h(win, place=None):
         input_box_pos = get_scale_point(input_box_pos, *get_window_width_and_height(win), 2560, 1440)
         input_box_pos = point_add_win(input_box_pos, win)  # 将窗口位置添加到点击位置
         log("前往位置坐标: " + str(input_box_pos))
-        time.sleep(0.5)
+        time.sleep(1)
         pyautogui.click(input_box_pos)
 
         time.sleep(10)  # 按住 2 秒
