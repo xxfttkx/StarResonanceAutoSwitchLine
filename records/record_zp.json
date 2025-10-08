@@ -1,0 +1,396 @@
+[
+  {
+    "type": "key",
+    "event": "up",
+    "name": "f1",
+    "time": 0.03504538536071777
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "d",
+    "time": 1.402965784072876
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "w",
+    "time": 1.4350390434265137
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "w",
+    "time": 1.943634271621704
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "space",
+    "time": 1.9549179077148438
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "space",
+    "time": 2.0828614234924316
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "space",
+    "time": 2.8991634845733643
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "d",
+    "time": 2.955096483230591
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "space",
+    "time": 3.074979782104492
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "d",
+    "time": 3.3469579219818115
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "space",
+    "time": 3.451275110244751
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "space",
+    "time": 3.5957748889923096
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "space",
+    "time": 4.2189555168151855
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "space",
+    "time": 4.346827983856201
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "space",
+    "time": 4.96390962600708
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "space",
+    "time": 5.099328517913818
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "q",
+    "time": 5.1708550453186035
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "q",
+    "time": 5.275053262710571
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "d",
+    "time": 5.618873357772827
+  },
+  {
+    "type": "mouse",
+    "event": "down",
+    "button": "left",
+    "pos": [
+      1293,
+      591
+    ],
+    "time": 5.66389536857605
+  },
+  {
+    "type": "mouse",
+    "event": "move",
+    "pos": [
+      1294,
+      593
+    ],
+    "time": 5.670755624771118
+  },
+  {
+    "type": "mouse",
+    "event": "move",
+    "pos": [
+      1294,
+      591
+    ],
+    "time": 5.721717596054077
+  },
+  {
+    "type": "mouse",
+    "event": "up",
+    "button": "left",
+    "pos": [
+      1293,
+      591
+    ],
+    "time": 5.7747979164123535
+  },
+  {
+    "type": "mouse",
+    "event": "move",
+    "pos": [
+      1294,
+      593
+    ],
+    "time": 5.783773899078369
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "w",
+    "time": 5.955270051956177
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "w",
+    "time": 6.434859275817871
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "w",
+    "time": 6.755101680755615
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "s",
+    "time": 6.987345933914185
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "s",
+    "time": 7.282844066619873
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "d",
+    "time": 7.602904319763184
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "d",
+    "time": 7.874900817871094
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "s",
+    "time": 7.987417459487915
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "s",
+    "time": 8.4108407497406
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "d",
+    "time": 8.771101236343384
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "d",
+    "time": 8.906814813613892
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "w",
+    "time": 8.931106328964233
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "w",
+    "time": 9.194969177246094
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "s",
+    "time": 10.171283721923828
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "s",
+    "time": 10.306807279586792
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "w",
+    "time": 11.098967790603638
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "w",
+    "time": 11.203058004379272
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "w",
+    "time": 11.491312503814697
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "w",
+    "time": 11.997673034667969
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "w",
+    "time": 12.029000759124756
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "w",
+    "time": 12.059598922729492
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "w",
+    "time": 12.091307401657104
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "w",
+    "time": 12.137866735458374
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "w",
+    "time": 12.167917728424072
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "w",
+    "time": 12.198028087615967
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "w",
+    "time": 12.227814674377441
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "d",
+    "time": 12.259018659591675
+  },
+  {
+    "type": "mouse",
+    "event": "move",
+    "pos": [
+      1295,
+      591
+    ],
+    "time": 12.706898212432861
+  },
+  {
+    "type": "mouse",
+    "event": "down",
+    "button": "left",
+    "pos": [
+      1294,
+      591
+    ],
+    "time": 12.723936080932617
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "d",
+    "time": 12.769450426101685
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "w",
+    "time": 12.77082872390747
+  },
+  {
+    "type": "mouse",
+    "event": "move",
+    "pos": [
+      1293,
+      593
+    ],
+    "time": 12.81034541130066
+  },
+  {
+    "type": "mouse",
+    "event": "up",
+    "button": "left",
+    "pos": [
+      1293,
+      592
+    ],
+    "time": 12.918190240859985
+  },
+  {
+    "type": "mouse",
+    "event": "move",
+    "pos": [
+      1294,
+      591
+    ],
+    "time": 12.929620504379272
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "d",
+    "time": 13.218847513198853
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "f3",
+    "time": 14.658871412277222
+  }
+]
