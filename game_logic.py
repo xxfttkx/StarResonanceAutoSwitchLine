@@ -35,9 +35,9 @@ def ensure_window_active(win):
         log(f"activate_win failed:{e}")
     return False
 
-def wait_and_press_h(win, place=None):
-    time.sleep(10)
-    log("等待切线完成（黑屏结束）...")
+def wait_black(win, delay_start, timeout, delay_judge):
+    time.sleep(delay_start)
+    log("等待黑屏结束...")
 
     x1, y1, x2, y2 = get_client_rect(win)
     width = x2 - x1
@@ -51,8 +51,7 @@ def wait_and_press_h(win, place=None):
     def is_black(rgb, threshold=30):
         # 判断是否接近黑色（R/G/B 都低于阈值）
         return all(channel < threshold for channel in rgb)
-
-    timeout = 25  # 最多等待 25 秒
+    
     start_time = time.time()
 
     while True:
@@ -66,10 +65,13 @@ def wait_and_press_h(win, place=None):
         if time.time() - start_time > timeout:
             log("等待超时，强制继续")
             break
-        time.sleep(2)
+        time.sleep(delay_judge)
 
     time.sleep(0.5)
-    log("切线结束，发送战斗按键 H")
+    log("黑屏结束")
+
+def wait_and_press_h(win, place=None):
+    wait_black(win,10,25,2)
     ensure_window_active(win)
     if place:
         log("即将前往位置: " + place)
@@ -86,48 +88,19 @@ def wait_and_press_h(win, place=None):
             pos = 'f8'
         elif place == "帐篷":
             pos = 'f7'
-        time.sleep(0.2)
         keyboard.press(pos)
     if place:
         wait_and_move(win, place)
+    start_attack()
+
+def start_attack():
     keyboard.press_and_release('p')
     time.sleep(0.1)
     keyboard.press_and_release('h')
 
+
 def wait_and_move(win, place=None):
-    time.sleep(5)
-    log("等待切换位置完成（黑屏结束）...")
-
-    x1, y1, x2, y2 = get_client_rect(win)
-    width = x2 - x1
-    height = y2 - y1
-
-    # 监测点位置（客户区下方90%高度处中间）
-    p1 = (x1 + width // 2, y1 + int(height * 0.90))
-    p2 = (x1 + width // 2, y1 + int(height * 0.1))
-    p3 = (x1 + width // 4, y1 + int(height * 0.05))
-
-    def is_black(rgb, threshold=30):
-        # 判断是否接近黑色（R/G/B 都低于阈值）
-        return all(channel < threshold for channel in rgb)
-
-    timeout = 15  # 最多等待 15 秒
-    start_time = time.time()
-
-    while True:
-        color_1 = get_pixel_color(p1[0], p1[1])
-        color_2 = get_pixel_color(p2[0], p2[1])
-        color_3 = get_pixel_color(p3[0], p3[1])
-        if not is_black(color_1) or not is_black(color_2)  or not is_black(color_3):
-            log("检测到非黑屏，切线完成")
-            break
-        
-        if time.time() - start_time > timeout:
-            log("等待超时，强制继续")
-            break
-        time.sleep(1)
-
-    time.sleep(0.5)
+    wait_black(win,5,15,1)
     log("到达位置，开始移动")
     if place:
         if place == "卡":
