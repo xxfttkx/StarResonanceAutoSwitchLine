@@ -1,6 +1,7 @@
 from datetime import datetime
 import os
 import re
+import sys
 import time
 from PIL import Image
 import cv2
@@ -17,6 +18,11 @@ def log(msg):
     """带时间前缀的打印函数"""
     now = datetime.now().strftime("[%H:%M:%S]")
     print(f"{now} {msg}")
+
+def log_error(msg):
+    """带时间前缀的错误打印函数"""
+    now = datetime.now().strftime("[%H:%M:%S]")
+    print(f"{now} {msg}", file=sys.stderr)
 
 def move_window_to_top_left(win):
     hwnd = win._hWnd  # 获取窗口句柄
@@ -141,3 +147,32 @@ def xywh_to_ltrb(x, y, w, h):
 def ltrb_to_xywh(left, top, right, bottom):
     """将 (left, top, right, bottom) 转换为 (x, y, w, h)"""
     return (left, top, right - left, bottom - top)
+
+def parse_line_place(text: str):
+    """
+    解析输入字符串为 (line, place)
+
+    支持：
+    - "16ys"
+    - "20 麦田"
+    - "16 麦田"
+    - "200test"
+    - "3abc"
+    """
+
+    text = text.strip()
+    if not text:
+        return None, None
+
+    # 使用正则分离数字和文字
+    m = re.match(r"^\s*(\d+)\s*([A-Za-z\u4e00-\u9fa5]*)\s*$", text)
+    if not m:
+        return None, None
+
+    line_str, place = m.groups()
+    try:
+        line = int(line_str)
+    except ValueError:
+        return None, None
+
+    return line, place or None
