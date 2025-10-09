@@ -18,7 +18,10 @@ def switch_line(win, line, place=None):
         # 按回车确认
         pyautogui.press('enter')
         log(f"正在切换到线路 {line}")
-        wait_and_press_h(win, place)
+        wait_and_tp(win, place)
+        wait_and_teleport(win, place)
+        wait_and_move(win, place)
+        start_attack()
     except Exception as e:
         log(f"switch_line failed:{e}")
     
@@ -85,7 +88,16 @@ def place_to_key(place):
         return 'f7'
     return None
 
-def wait_and_press_h(win, place=None):
+def wait_and_teleport(win, place):
+    if not place:
+        return
+    key = place_to_key(place)
+    wait_black(win,5,15,1)
+    log("到达位置，将再次传送修正位置")
+    ensure_window_active(win)
+    keyboard.press_and_release(key)
+
+def wait_and_tp(win, place=None):
     wait_black(win,10,25,2)
     ensure_window_active(win)
     if place:
@@ -93,13 +105,13 @@ def wait_and_press_h(win, place=None):
         key = place_to_key(place)
         if key:
             keyboard.press_and_release(key)
-            wait_and_move(win, place)
-    start_attack()
 
 def start_attack():
     keyboard.press_and_release('p')
     time.sleep(0.1)
     keyboard.press_and_release('h')
+    time.sleep(0.1)
+    keyboard.press_and_release('2')
 
 
 def wait_and_move(win, place=None):
