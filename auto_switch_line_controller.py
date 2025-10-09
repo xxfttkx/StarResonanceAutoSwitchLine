@@ -1,3 +1,4 @@
+from listener import EnemyListener
 from utils import *
 import game_logic
 
@@ -7,6 +8,14 @@ class AutoSwitchLineController:
         self.auto_switch = False
         self.first_failed = True
         self.place = None
+        self.enemy_listener = EnemyListener(["小猪·闪闪"], self.notify_monster_dead)
+        self.lock = False
+
+    def notify_monster_dead(self):
+        if not self.lock:
+            self.lock = True
+            log("监听到小猪闪闪死亡，等待新的情报")
+            self.auto_switch = True 
     
     def reset_place(self):
         self.place = None
@@ -48,6 +57,7 @@ class AutoSwitchLineController:
                 game_logic.switch_line(self.target_window, target_line, target_place)
                 if target_place:
                     self.set_place(target_place)
+                self.lock = False
             except Exception as e:
                 log(f"热键执行失败: {e}")
 

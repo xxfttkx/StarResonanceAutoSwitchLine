@@ -98,6 +98,7 @@ def start_gui():
 
     # 启动异步监听线程
     threading.Thread(target=lambda: asyncio.run(listen(controller, stop_event)), daemon=True).start()
+    threading.Thread(target=lambda: asyncio.run(controller.enemy_listener.try_listen()), daemon=True).start()
 
     # 绑定关闭事件（窗口关闭或点击“结束程序”按钮都触发）
     root.protocol("WM_DELETE_WINDOW", lambda: on_close(root))
