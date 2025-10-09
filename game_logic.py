@@ -98,9 +98,9 @@ def wait_and_teleport(win, place):
     keyboard.press_and_release(key)
 
 def wait_and_tp(win, place=None):
-    wait_black(win,10,25,2)
-    ensure_window_active(win)
     if place:
+        wait_black(win,10,25,2)
+        ensure_window_active(win)
         log("即将前往位置: " + place)
         key = place_to_key(place)
         if key:
