@@ -70,27 +70,30 @@ def wait_black(win, delay_start, timeout, delay_judge):
     time.sleep(0.5)
     log("黑屏结束")
 
+def place_to_key(place):
+    if place in {"左上","右上","右"}:
+        return 'f10'
+    elif place == "崖之遗迹":
+        return 'f5'
+    elif place == "麦田":
+        return 'f9'
+    elif place == "卡":
+        return 'f11'
+    elif place == "驿站":
+        return 'f8'
+    elif place == "帐篷":
+        return 'f7'
+    return None
+
 def wait_and_press_h(win, place=None):
     wait_black(win,10,25,2)
     ensure_window_active(win)
     if place:
         log("即将前往位置: " + place)
-        pos = None
-        if place in {"左上","右上","右"}:
-            pos = 'f10'
-        elif place == "崖之遗迹":
-            pos = 'f5'
-        elif place == "麦田":
-            pos = 'f9'
-        elif place == "卡":
-            pos = 'f11'
-        elif place == "驿站":
-            pos = 'f8'
-        elif place == "帐篷":
-            pos = 'f7'
-        keyboard.press(pos)
-    if place:
-        wait_and_move(win, place)
+        key = place_to_key(place)
+        if key:
+            keyboard.press_and_release(key)
+            wait_and_move(win, place)
     start_attack()
 
 def start_attack():
