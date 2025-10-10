@@ -3,300 +3,234 @@
     "type": "key",
     "event": "up",
     "name": "f1",
-    "time": 0.052880048751831055
+    "time": 0.043758392333984375
   },
   {
     "type": "key",
     "event": "down",
     "name": "a",
-    "time": 0.6368992328643799
+    "time": 0.6916778087615967
   },
   {
     "type": "key",
     "event": "down",
     "name": "space",
-    "time": 0.8929905891418457
+    "time": 1.0916574001312256
   },
   {
     "type": "key",
     "event": "up",
     "name": "space",
-    "time": 0.9888896942138672
-  },
-  {
-    "type": "key",
-    "event": "down",
-    "name": "space",
-    "time": 1.956890344619751
-  },
-  {
-    "type": "key",
-    "event": "up",
-    "name": "space",
-    "time": 2.07685923576355
-  },
-  {
-    "type": "key",
-    "event": "down",
-    "name": "space",
-    "time": 2.500826358795166
-  },
-  {
-    "type": "key",
-    "event": "up",
-    "name": "space",
-    "time": 2.604879140853882
+    "time": 1.1876952648162842
   },
   {
     "type": "key",
     "event": "down",
     "name": "w",
-    "time": 2.749033212661743
+    "time": 1.499772071838379
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "w",
+    "time": 1.7318694591522217
   },
   {
     "type": "key",
     "event": "down",
     "name": "space",
-    "time": 2.9248123168945312
+    "time": 2.4361155033111572
   },
   {
     "type": "key",
     "event": "up",
     "name": "space",
-    "time": 3.157142162322998
+    "time": 2.548473358154297
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "w",
+    "time": 2.97976016998291
   },
   {
     "type": "key",
     "event": "down",
     "name": "space",
-    "time": 3.5973479747772217
+    "time": 3.1318557262420654
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "w",
+    "time": 3.1878409385681152
   },
   {
     "type": "key",
     "event": "up",
     "name": "space",
-    "time": 3.701331377029419
+    "time": 3.2197601795196533
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "w",
+    "time": 3.4680309295654297
   },
   {
     "type": "key",
     "event": "down",
     "name": "space",
-    "time": 4.9648919105529785
+    "time": 3.563929796218872
   },
   {
     "type": "key",
     "event": "up",
     "name": "space",
-    "time": 5.052985429763794
-  },
-  {
-    "type": "key",
-    "event": "down",
-    "name": "d",
-    "time": 5.733144998550415
+    "time": 3.6757397651672363
   },
   {
     "type": "key",
     "event": "up",
-    "name": "d",
-    "time": 5.741001844406128
+    "name": "w",
+    "time": 4.195641756057739
   },
   {
     "type": "key",
     "event": "down",
-    "name": "d",
-    "time": 5.757603883743286
-  },
-  {
-    "type": "key",
-    "event": "up",
-    "name": "d",
-    "time": 5.772854566574097
-  },
-  {
-    "type": "key",
-    "event": "down",
-    "name": "d",
-    "time": 5.812977313995361
-  },
-  {
-    "type": "key",
-    "event": "up",
-    "name": "d",
-    "time": 6.1011292934417725
-  },
-  {
-    "type": "key",
-    "event": "down",
-    "name": "d",
-    "time": 6.757042646408081
-  },
-  {
-    "type": "key",
-    "event": "up",
-    "name": "d",
-    "time": 6.821042537689209
-  },
-  {
-    "type": "key",
-    "event": "down",
-    "name": "d",
-    "time": 7.269208669662476
-  },
-  {
-    "type": "key",
-    "event": "up",
-    "name": "d",
-    "time": 7.380857944488525
+    "name": "w",
+    "time": 4.403692960739136
   },
   {
     "type": "key",
     "event": "down",
     "name": "space",
-    "time": 7.989273309707642
+    "time": 4.412054061889648
   },
   {
     "type": "key",
     "event": "up",
     "name": "space",
-    "time": 8.07736873626709
-  },
-  {
-    "type": "key",
-    "event": "down",
-    "name": "d",
-    "time": 8.596848011016846
+    "time": 4.523848295211792
   },
   {
     "type": "key",
     "event": "down",
     "name": "space",
-    "time": 8.716838836669922
+    "time": 5.835931062698364
   },
   {
     "type": "key",
     "event": "up",
     "name": "space",
-    "time": 8.836904048919678
-  },
-  {
-    "type": "key",
-    "event": "up",
-    "name": "d",
-    "time": 9.044846534729004
-  },
-  {
-    "type": "key",
-    "event": "down",
-    "name": "d",
-    "time": 9.485702991485596
-  },
-  {
-    "type": "key",
-    "event": "down",
-    "name": "space",
-    "time": 9.508806705474854
-  },
-  {
-    "type": "key",
-    "event": "up",
-    "name": "space",
-    "time": 9.652991771697998
-  },
-  {
-    "type": "key",
-    "event": "up",
-    "name": "d",
-    "time": 9.677214860916138
-  },
-  {
-    "type": "key",
-    "event": "down",
-    "name": "d",
-    "time": 10.36542797088623
-  },
-  {
-    "type": "key",
-    "event": "down",
-    "name": "space",
-    "time": 10.380819320678711
-  },
-  {
-    "type": "key",
-    "event": "up",
-    "name": "d",
-    "time": 10.412838697433472
-  },
-  {
-    "type": "key",
-    "event": "down",
-    "name": "d",
-    "time": 10.468980073928833
-  },
-  {
-    "type": "key",
-    "event": "up",
-    "name": "space",
-    "time": 10.50108003616333
-  },
-  {
-    "type": "key",
-    "event": "up",
-    "name": "d",
-    "time": 10.557312965393066
-  },
-  {
-    "type": "key",
-    "event": "down",
-    "name": "d",
-    "time": 10.56534743309021
+    "time": 5.9077136516571045
   },
   {
     "type": "key",
     "event": "up",
     "name": "a",
-    "time": 10.684853076934814
-  },
-  {
-    "type": "key",
-    "event": "up",
-    "name": "d",
-    "time": 10.82099437713623
+    "time": 7.0040504932403564
   },
   {
     "type": "key",
     "event": "down",
     "name": "d",
-    "time": 10.884981393814087
+    "time": 7.931844472885132
   },
   {
     "type": "key",
     "event": "up",
     "name": "d",
-    "time": 11.061032056808472
+    "time": 8.147750854492188
   },
   {
     "type": "key",
     "event": "down",
     "name": "d",
-    "time": 11.229235887527466
+    "time": 8.59576940536499
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "d",
+    "time": 9.096985340118408
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "space",
+    "time": 9.09965467453003
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "space",
+    "time": 9.228220462799072
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "space",
+    "time": 9.859951496124268
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "space",
+    "time": 9.955971002578735
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "d",
+    "time": 10.099930763244629
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "space",
+    "time": 10.499765396118164
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "space",
+    "time": 10.61180853843689
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "space",
+    "time": 11.444560050964355
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "space",
+    "time": 11.50776219367981
   },
   {
     "type": "key",
     "event": "up",
     "name": "w",
-    "time": 11.572908401489258
+    "time": 11.683656930923462
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "a",
+    "time": 12.276328563690186
   },
   {
     "type": "key",
     "event": "up",
-    "name": "d",
-    "time": 11.588977098464966
+    "name": "a",
+    "time": 12.347983837127686
   },
   {
     "type": "key",
     "event": "down",
     "name": "f3",
-    "time": 12.82103943824768
+    "time": 13.163913011550903
   }
 ]
