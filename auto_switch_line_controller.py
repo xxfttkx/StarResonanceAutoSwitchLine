@@ -11,14 +11,82 @@ class AutoSwitchLineController:
         self.enemy_listener = EnemyListener(["小猪·闪闪"], self.notify_monster_dead)
         self.lock = False
 
+        self.curr_pig = None
+        self.next_pig = None
+        self.states = []
+
+    def all_pig_dead(self):
+        for state in self.states:
+            if state[2] == 'a':
+                return False
+        return True
+    
+    def log_all_pig(self):
+        log("当前小猪状态:")
+        for state in self.states:
+            status = "✅" if state[2] == 'a' else "❌"
+            log(f"{state[0]}{state[1]}: {status}")
+    
+    def cal_next_pig(self):
+        self.log_all_pig()
+        if self.all_pig_dead():
+            self.curr_pig = None
+            self.next_pig = None
+        else:
+            if self.curr_pig == None:
+                for state in self.states:
+                    if state[2] == 'a':
+                        self.next_pig = (state[0], state[1])
+                        break
+            else:
+                found_curr = False
+                for state in self.states:
+                    if found_curr and state[2] == 'a':
+                        self.next_pig = (state[0], state[1])
+                        break
+                    if state[0] == self.curr_pig[0] and state[1] == self.curr_pig[1]:
+                        found_curr = True
+                else:
+                    for state in self.states:
+                        if state[2] == 'a':
+                            self.next_pig = (state[0], state[1])
+                            break
+
+    def deal_with_msg(self, msg):
+        results = parse_msg(msg)
+        for line, place, state in results:
+            # 查找是否已有相同的 line 和 place
+            for s in self.states:
+                if s[0] == line and s[1] == place:
+                    # 更新状态
+                    if state == 's':
+                        s[2] = state
+                    break
+            else:
+                # 未找到则添加新的记录
+                self.states.append([line, place, state])
+        
+                    
     def notify_monster_dead(self):
         if not self.lock:
             self.lock = True
             log("监听到小猪闪闪死亡，等待新的情报")
-            self.auto_switch = True 
+            time.sleep(1)
+            if self.curr_pig:
+                for state in self.states:
+                    if state[0] == self.curr_pig[0] and state[1] == self.curr_pig[1]:
+                        state[2] = 's'
+                        break
+            self.auto_switch = True
+            self.cal_next_pig()
+            if self.next_pig:
+                line, place = self.next_pig
+                log(f"准备切换到线路 {line} 位置 {place}")
+                self.switch_line(line, place)
     
     def reset_place(self):
         self.place = None
+        self.curr_pig = None
         log("重置位置成功")
         # screenshot_window(self.target_window)
     
@@ -52,6 +120,7 @@ class AutoSwitchLineController:
 
         if self.ensure_window_active():
             try:
+                self.curr_pig = (target_line, target_place)
                 if self.place == target_place:
                     target_place = None
                 game_logic.switch_line(self.target_window, target_line, target_place)

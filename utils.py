@@ -176,3 +176,23 @@ def parse_line_place(text: str):
         return None, None
 
     return line, place or None
+
+def parse_msg(msg: str):
+    """
+    解析多行消息，返回所有符合的 (line, place, state)
+    例如输入：
+        188卡: ✅
+        172帐篷: ❌
+    输出：
+        [(188, '卡', '✅'), (172, '帐篷', '❌')]
+    """
+    pattern = r"(\d+)(\S+):\s*(✅|❌|💥)"
+    results = []
+    for line in msg.splitlines():
+        m = re.match(pattern, line.strip())
+        if m:
+            line_num = int(m.group(1))
+            place = m.group(2)
+            state = m.group(3) == '✅' and 'a' or 's'
+            results.append((line_num, place, state))
+    return results
