@@ -45,12 +45,15 @@ class AutoSwitchLineController:
                         self.next_pig = (state[0], state[1])
                         break
                     if state[0] == self.curr_pig[0] and state[1] == self.curr_pig[1]:
+                        if state[2] == 'a':
+                            break
                         found_curr = True
                 else:
                     for state in self.states:
                         if state[2] == 'a':
                             self.next_pig = (state[0], state[1])
                             break
+        log(f"计算得到下一只小猪为: {self.next_pig if self.next_pig else '无'}")
 
     def deal_with_msg(self, msg):
         results = parse_msg(msg)

@@ -61,12 +61,12 @@ async def listen(controller, stop_event=None):
 
                         if user_id == TARGET_USER and group_id == TARGET_GROUP:
                             log(f"收到消息: {message}")
-                            parsed = parse_messages(message)
+                            # parsed = parse_messages(message)
                             controller.deal_with_msg(message)
                             controller.cal_next_pig()
                             if controller.next_pig and controller.auto_switch:
-                                line, pos = parsed[-1]
-                                controller.switch_line(line, pos)
+                                line, pos = controller.next_pig
+                                asyncio.create_task(controller.switch_line(line, pos))
 
         except Exception as e:
             if stop_event.is_set():
