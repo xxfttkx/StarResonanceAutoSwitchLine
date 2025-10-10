@@ -1,3 +1,4 @@
+import atexit
 import ctypes
 ctypes.windll.shcore.SetProcessDpiAwareness(2) 
 import asyncio
@@ -84,4 +85,6 @@ if __name__ == "__main__":
     keyboard.add_hotkey('-', controller.switch_open_auto_switch_line)
     keyboard.add_hotkey('*', controller.switch_close_auto_switch_line)
     keyboard.add_hotkey('+', controller.reset_place)
+    # 注册退出清理
+    atexit.register(keyboard.unhook_all)
     asyncio.run(listen(controller))
