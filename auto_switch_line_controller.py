@@ -1,3 +1,4 @@
+import asyncio
 from listener import EnemyListener
 from utils import *
 import game_logic
@@ -70,7 +71,7 @@ class AutoSwitchLineController:
                 self.states.append([line, place, state])
         
                     
-    def notify_monster_dead(self):
+    async def notify_monster_dead(self):
         if not self.lock:
             self.lock = True
             log("监听到小猪闪闪死亡，等待新的情报")
@@ -85,7 +86,8 @@ class AutoSwitchLineController:
             if self.next_pig:
                 line, place = self.next_pig
                 log(f"准备切换到线路 {line} 位置 {place}")
-                self.switch_line(line, place)
+                asyncio.create_task(self.switch_line(line, place))
+
     
     def reset_place(self):
         self.place = None
@@ -113,7 +115,7 @@ class AutoSwitchLineController:
                     self.target_window = find_target_window()
         return False
 
-    def switch_line(self, target_line, target_place = None):
+    async def switch_line(self, target_line, target_place = None):
         """切换线路"""
         if not self.auto_switch:
             return

@@ -1,3 +1,5 @@
+import ctypes
+ctypes.windll.shcore.SetProcessDpiAwareness(2) 
 import asyncio
 import json
 import re

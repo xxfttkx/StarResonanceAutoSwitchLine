@@ -58,17 +58,17 @@ class EnemyListener:
                         targethp = target.get('hp', -1)
                         if targethp == 0:
                             if callable(self.on_monster_dead):
-                                self.on_monster_dead()
+                                await self.on_monster_dead()
                         if lastHP == targethp:
                             # 丢包
                             count +=1
                             if (count > 10 and targethp < 1000) or (count>20):
                                 if callable(self.on_monster_dead):
-                                    self.on_monster_dead()
+                                    await self.on_monster_dead()
                         else:
                             count = 0
                             lastHP = targethp
                     else:
                         if callable(self.on_monster_dead):
-                            self.on_monster_dead()
+                            await self.on_monster_dead()
                 await asyncio.sleep(self.poll_interval_sec)
