@@ -139,7 +139,7 @@ class AutoSwitchLineController:
                 self.curr_pig = (target_line, target_place)
                 if self.place == target_place:
                     target_place = None
-                game_logic.switch_line(self.target_window, target_line, target_place)
+                await asyncio.to_thread(game_logic.switch_line, self.target_window, target_line, target_place)
                 if target_place:
                     self.set_place(target_place)
                 self.lock = False
