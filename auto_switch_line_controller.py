@@ -1,4 +1,5 @@
 import asyncio
+import threading
 from listener import EnemyListener
 from utils import *
 import game_logic
@@ -9,12 +10,16 @@ class AutoSwitchLineController:
         self.auto_switch = False
         self.first_failed = True
         self.place = None
-        self.enemy_listener = EnemyListener(["小猪·闪闪"], self.notify_monster_dead)
+        self.enemy_listener = EnemyListener(["小猪·闪闪"], self.on_monster_dead)
         self.lock = False
+
+        self.auto_switch_lock = threading.Lock()
 
         self.curr_pig = None
         self.next_pig = None
         self.states = []
+
+        self.last_time = 0
 
     def all_pig_dead(self):
         for state in self.states:
@@ -71,11 +76,11 @@ class AutoSwitchLineController:
                 self.states.append([line, place, state])
         
                     
-    async def notify_monster_dead(self):
+    async def on_monster_dead(self):
         if not self.lock:
             self.lock = True
             log("监听到小猪闪闪死亡，等待新的情报")
-            time.sleep(1)
+            await asyncio.sleep(1)
             if self.curr_pig:
                 for state in self.states:
                     if state[0] == self.curr_pig[0] and state[1] == self.curr_pig[1]:
@@ -86,8 +91,13 @@ class AutoSwitchLineController:
             if self.next_pig:
                 line, place = self.next_pig
                 log(f"准备切换到线路 {line} 位置 {place}")
-                asyncio.create_task(self.switch_line(line, place))
+                self.task = asyncio.create_task(self.switch_line(line, place))
 
+    def stop_task(self):
+        if hasattr(self, 'task') and self.task and not self.task.done():
+            self.task.cancel()
+            log("已取消当前切线任务")
+        self.reset_place()
     
     def reset_place(self):
         self.place = None
@@ -118,6 +128,7 @@ class AutoSwitchLineController:
     async def switch_line(self, target_line, target_place = None):
         """切换线路"""
         if not self.auto_switch:
+            log(f"非自动切线模式，不切线")
             return
 
         log(f"自动切线模式，准备切换到线路 {target_line}")

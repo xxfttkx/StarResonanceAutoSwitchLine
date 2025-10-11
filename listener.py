@@ -13,7 +13,7 @@ def find_enemy(enemies, target_group):
         return None
 
 class EnemyListener:
-    def __init__(self, target_group=None, callback=None):
+    def __init__(self, target_group=None, callback=None, controller=None):
         self.target_group = target_group if target_group else TARGET_GROUP
         self.on_monster_dead = None
         self.enemy_url = "http://localhost:8989/api/enemies"
@@ -62,7 +62,7 @@ class EnemyListener:
                         if lastHP == targethp:
                             # 丢包
                             count +=1
-                            if (count > 10 and targethp < 1000) or (count>20):
+                            if (count > 10 and targethp < 1000) or (count>100):
                                 if callable(self.on_monster_dead):
                                     await self.on_monster_dead()
                         else:
