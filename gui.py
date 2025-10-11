@@ -26,7 +26,8 @@ def handle_input(text, controller):
     line, place = parse_line_place(text)
     log(f"line: {line}; place: {place}")
     controller.auto_switch = True
-    controller.switch_line(line, place)
+    # controller.task = asyncio.create_task(controller.switch_line(line, place))
+    asyncio.run(controller.switch_line(line, place))
 
 
 def on_close(root):
@@ -36,6 +37,12 @@ def on_close(root):
     stop_event.set()                  # 通知异步任务结束
     root.destroy()                    # 关闭 Tk 窗口
     sys.exit(0)                       # 彻底退出
+
+def reset_pigs(controller):
+    controller.reset_pigs()
+
+def stop_task(controller):
+    controller.stop_task()
 
 
 def start_gui():
@@ -54,6 +61,36 @@ def start_gui():
     input_box = tk.Text(left_frame, height=5, width=40, font=("Consolas", 14))
     input_box.pack(fill="x", pady=10)
     input_box.bind("<Return>", lambda e: on_input_enter(e, controller))
+
+    # ✅ 在输入框下方新增两个按钮
+    button_frame = tk.Frame(left_frame, bg="#f0f4f7")
+    button_frame.pack(fill="x", pady=(5, 15))
+
+    btn1 = tk.Button(
+        button_frame,
+        text="重置猪猪",
+        font=("Microsoft YaHei", 12),
+        width=15,
+        height=2,
+        bg="#2196F3",
+        fg="white",
+        relief="flat",
+        command=lambda: reset_pigs(controller=controller)
+    )
+    btn1.pack(side="left", padx=5)
+
+    btn2 = tk.Button(
+        button_frame,
+        text="停止行动并停止自动",
+        font=("Microsoft YaHei", 12),
+        width=15,
+        height=2,
+        bg="#4CAF50",
+        fg="white",
+        relief="flat",
+        command=lambda: stop_task(controller=controller)
+    )
+    btn2.pack(side="left", padx=5)
 
     # 日志区
     right_frame = tk.Frame(root, bg="#ffffff")

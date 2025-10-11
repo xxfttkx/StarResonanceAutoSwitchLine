@@ -21,6 +21,14 @@ class AutoSwitchLineController:
 
         self.last_time = 0
 
+    def reset_pigs(self):
+        # self.stop_task()
+        self.states = []
+        # self.reset_place()
+        # self.curr_pig = None
+        self.next_pig = None
+        log("重置小猪状态成功")
+
     def all_pig_dead(self):
         for state in self.states:
             if state[2] == 'a':
@@ -97,7 +105,7 @@ class AutoSwitchLineController:
         if hasattr(self, 'task') and self.task and not self.task.done():
             self.task.cancel()
             log("已取消当前切线任务")
-        self.reset_place()
+        self.auto_switch = False
     
     def reset_place(self):
         self.place = None
