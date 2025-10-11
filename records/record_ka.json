@@ -460,7 +460,19 @@
   {
     "type": "key",
     "event": "down",
+    "name": "s",
+    "time": 18
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "s",
+    "time": 19.5
+  },
+  {
+    "type": "key",
+    "event": "down",
     "name": "f3",
-    "time": 18.728911638259888
+    "time": 19.6
   }
 ]
