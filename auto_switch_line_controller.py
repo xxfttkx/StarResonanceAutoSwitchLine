@@ -74,7 +74,7 @@ class AutoSwitchLineController:
         for line, place, state in results:
             # 查找是否已有相同的 line 和 place
             for s in self.states:
-                if s[0] == line and s[1] == place:
+                if s[0] == line: # and s[1] == place:
                     # 更新状态
                     if state == 's':
                         s[2] = state
