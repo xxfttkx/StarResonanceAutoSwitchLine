@@ -27,8 +27,8 @@ def handle_input(text, controller):
     log(f"line: {line}; place: {place}")
     controller.switch_open_auto_switch_line()
     # controller.task = asyncio.create_task(controller.switch_line(line, place))
-    asyncio.run(controller.switch_line(line, place))
-
+    # asyncio.run(controller.switch_line(line, place))
+    threading.Thread(target=lambda: asyncio.run(controller.switch_line(line, place)), daemon=True).start()
 
 def on_close(root):
     """退出程序时调用"""

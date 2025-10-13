@@ -8,11 +8,12 @@ class AutoSwitchLineController:
     def __init__(self, target_window):
         self.target_window = target_window
         self.auto_switch = False
-        self.switch_open_auto_switch_line()
+        # self.switch_open_auto_switch_line()
         self.first_failed = True
         self.place = None
         self.enemy_listener = EnemyListener(["小猪·闪闪"], self.on_monster_dead)
         self.is_hunting = False
+        self.hunting_lock = asyncio.Lock()
 
         self.auto_switch_lock = threading.Lock()
 
@@ -24,6 +25,8 @@ class AutoSwitchLineController:
 
         self.is_manual = False
         self.strat = 'none'  # 'current' or 'none' or 'manual'
+
+        self.lock = False
 
     def reset_pigs(self):
         # self.stop_task()
@@ -95,8 +98,8 @@ class AutoSwitchLineController:
         
                     
     async def on_monster_dead(self):
-        if self.is_hunting:
-            self.is_hunting = False
+        if not self.is_hunting and not self.lock:
+            self.lock = True
             log("监听到小猪闪闪死亡，等待新的情报")
             self.switch_open_auto_switch_line()
             if self.is_manual:
@@ -148,24 +151,26 @@ class AutoSwitchLineController:
 
     async def switch_line(self, target_line, target_place = None):
         """切换线路"""
-        if not self.auto_switch:
-            log(f"非自动切线模式，不切线")
-            return
-        self.is_hunting = True
-        log(f"自动切线模式，准备切换到线路 {target_line}")
-        self.auto_switch = False
+        async with self.hunting_lock:  # 🔒 异步锁开始
+            if not self.auto_switch:
+                log(f"非自动切线模式，不切线")
+                return
+            self.is_hunting = True
+            self.lock = False
+            log(f"自动切线模式，准备切换到线路 {target_line}")
+            self.auto_switch = False
 
-        if self.ensure_window_active():
-            try:
-                self.curr_pig = (target_line, target_place)
-                if self.place == target_place:
-                    target_place = None
-                await asyncio.to_thread(game_logic.switch_line, self.target_window, target_line, target_place)
-                if target_place:
-                    self.set_place(target_place)
-                self.is_hunting = False
-            except Exception as e:
-                log(f"热键执行失败: {e}")
+            if self.ensure_window_active():
+                try:
+                    self.curr_pig = (target_line, target_place)
+                    if self.place == target_place:
+                        target_place = None
+                    await asyncio.to_thread(game_logic.switch_line, self.target_window, target_line, target_place)
+                    if target_place:
+                        self.set_place(target_place)
+                    self.is_hunting = False
+                except Exception as e:
+                    log(f"热键执行失败: {e}")
 
     def switch_auto_switch_line(self):
         self.auto_switch = not self.auto_switch

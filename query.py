@@ -69,6 +69,7 @@ async def listen(controller, stop_event=None):
                             if not controller.is_manual and not controller.is_hunting:
                                 controller.cal_next_pig()
                                 if controller.next_pig and controller.auto_switch:
+                                    controller.is_hunting = True
                                     line, pos = controller.next_pig
                                     controller.task = asyncio.create_task(controller.switch_line(line, pos))
 
