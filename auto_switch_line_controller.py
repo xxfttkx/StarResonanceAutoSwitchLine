@@ -94,7 +94,7 @@ class AutoSwitchLineController:
                     if state[0] == self.curr_pig[0] and state[1] == self.curr_pig[1]:
                         state[2] = 's'
                         break
-            self.auto_switch = True
+            self.switch_open_auto_switch_line()
             self.cal_next_pig()
             if self.next_pig:
                 line, place = self.next_pig
