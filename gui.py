@@ -48,6 +48,9 @@ def on_manual_toggle(var, controller):
     controller.is_manual = var.get()
     log(f"手动模式切换为: {controller.is_manual}")
 
+def update_strat(controller, value):
+    controller.strat = value
+    log(f"当前策略 strat = {controller.strat}")
 
 def start_gui():
     controller = AutoSwitchLineController(find_target_window())
@@ -107,6 +110,18 @@ def start_gui():
         command=lambda: on_manual_toggle(manual_var, controller)
     )
     manual_check.pack(anchor="w", pady=5)
+
+    # ✅ strat 策略选择框
+    strat_frame = tk.Frame(left_frame, bg="#f0f4f7")
+    strat_frame.pack(anchor="w", pady=(5, 10))
+
+    tk.Label(strat_frame, text="选择策略模式：", font=("Microsoft YaHei", 12), bg="#f0f4f7").pack(side="left")
+
+    strat_var = tk.StringVar(value=controller.strat)
+    strat_options = ["current", "none", "manual"]
+    strat_menu = tk.OptionMenu(strat_frame, strat_var, *strat_options, command=lambda val: update_strat(controller, val))
+    strat_menu.config(font=("Microsoft YaHei", 12))
+    strat_menu.pack(side="left", padx=10)
 
     # 日志区
     right_frame = tk.Frame(root, bg="#ffffff")

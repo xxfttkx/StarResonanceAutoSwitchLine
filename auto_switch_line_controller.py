@@ -44,32 +44,38 @@ class AutoSwitchLineController:
             status = "✅" if state[2] == 'a' else "❌"
             log(f"{state[0]}{state[1]}: {status}")
     
+    def get_next_pig(self):
+        if not self.curr_pig:
+            for state in self.states:
+                if state[2] == 'a':
+                    return (state[0], state[1])
+        found_curr = False
+        place = self.curr_pig[1]
+        for state in self.states:
+            if self.strat == 'none':
+                if found_curr and state[2] == 'a':
+                    self.next_pig = (state[0], state[1])
+                    break
+            elif self.strat == 'current':
+                if found_curr and state[2] == 'a' and state[1] == place:
+                    return (state[0], state[1])
+
+            if state[0] == self.curr_pig[0] and state[1] == self.curr_pig[1]:
+                if state[2] == 'a':
+                    break
+                found_curr = True
+        # 没找到则从头找
+        for state in self.states:
+            if state[2] == 'a':
+                return (state[0], state[1])
+
     def cal_next_pig(self):
         self.log_all_pig()
         if self.all_pig_dead():
             self.curr_pig = None
             self.next_pig = None
         else:
-            if self.curr_pig == None:
-                for state in self.states:
-                    if state[2] == 'a':
-                        self.next_pig = (state[0], state[1])
-                        break
-            else:
-                found_curr = False
-                for state in self.states:
-                    if found_curr and state[2] == 'a':
-                        self.next_pig = (state[0], state[1])
-                        break
-                    if state[0] == self.curr_pig[0] and state[1] == self.curr_pig[1]:
-                        if state[2] == 'a':
-                            break
-                        found_curr = True
-                else:
-                    for state in self.states:
-                        if state[2] == 'a':
-                            self.next_pig = (state[0], state[1])
-                            break
+            self.next_pig = self.get_next_pig()
         log(f"计算得到下一只小猪为: {self.next_pig if self.next_pig else '无'}")
 
     def deal_with_msg(self, msg):
