@@ -8,6 +8,7 @@ class AutoSwitchLineController:
     def __init__(self, target_window):
         self.target_window = target_window
         self.auto_switch = False
+        self.switch_open_auto_switch_line()
         self.first_failed = True
         self.place = None
         self.enemy_listener = EnemyListener(["小猪·闪闪"], self.on_monster_dead)
@@ -22,7 +23,7 @@ class AutoSwitchLineController:
         self.last_time = 0
 
         self.is_manual = False
-        self.strat = 'current'  # 'current' or 'none' or 'manual'
+        self.strat = 'none'  # 'current' or 'none' or 'manual'
 
     def reset_pigs(self):
         # self.stop_task()
