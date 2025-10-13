@@ -107,6 +107,8 @@ def wait_and_tp(win, place=None):
             keyboard.press_and_release(key)
 
 def start_attack():
+    keyboard.press_and_release('esc')
+    time.sleep(0.1)
     keyboard.press_and_release('p')
     time.sleep(0.1)
     keyboard.press_and_release('h')
