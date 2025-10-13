@@ -11,7 +11,7 @@ class AutoSwitchLineController:
         self.first_failed = True
         self.place = None
         self.enemy_listener = EnemyListener(["小猪·闪闪"], self.on_monster_dead)
-        self.lock = False
+        self.is_hunting = False
 
         self.auto_switch_lock = threading.Lock()
 
@@ -20,6 +20,9 @@ class AutoSwitchLineController:
         self.states = []
 
         self.last_time = 0
+
+        self.is_manual = False
+        self.strat = 'current'  # 'current' or 'none' or 'manual'
 
     def reset_pigs(self):
         # self.stop_task()
@@ -85,16 +88,19 @@ class AutoSwitchLineController:
         
                     
     async def on_monster_dead(self):
-        if not self.lock:
-            self.lock = True
+        if self.is_hunting:
+            self.is_hunting = False
             log("监听到小猪闪闪死亡，等待新的情报")
+            self.switch_open_auto_switch_line()
+            if self.is_manual:
+                log("手动模式，等待手动重置小猪状态")
+                return
             await asyncio.sleep(1)
             if self.curr_pig:
                 for state in self.states:
                     if state[0] == self.curr_pig[0] and state[1] == self.curr_pig[1]:
                         state[2] = 's'
                         break
-            self.switch_open_auto_switch_line()
             self.cal_next_pig()
             if self.next_pig:
                 line, place = self.next_pig
@@ -138,7 +144,7 @@ class AutoSwitchLineController:
         if not self.auto_switch:
             log(f"非自动切线模式，不切线")
             return
-
+        self.is_hunting = True
         log(f"自动切线模式，准备切换到线路 {target_line}")
         self.auto_switch = False
 
@@ -150,7 +156,7 @@ class AutoSwitchLineController:
                 await asyncio.to_thread(game_logic.switch_line, self.target_window, target_line, target_place)
                 if target_place:
                     self.set_place(target_place)
-                self.lock = False
+                self.is_hunting = False
             except Exception as e:
                 log(f"热键执行失败: {e}")
 

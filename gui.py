@@ -25,7 +25,7 @@ def handle_input(text, controller):
     log(f"收到输入: {text}")
     line, place = parse_line_place(text)
     log(f"line: {line}; place: {place}")
-    controller.auto_switch = True
+    controller.switch_open_auto_switch_line()
     # controller.task = asyncio.create_task(controller.switch_line(line, place))
     asyncio.run(controller.switch_line(line, place))
 
@@ -43,6 +43,10 @@ def reset_pigs(controller):
 
 def stop_task(controller):
     controller.stop_task()
+
+def on_manual_toggle(var, controller):
+    controller.is_manual = var.get()
+    log(f"手动模式切换为: {controller.is_manual}")
 
 
 def start_gui():
@@ -92,6 +96,18 @@ def start_gui():
     )
     btn2.pack(side="left", padx=5)
 
+    # ✅ 可选框（is_manual）
+    manual_var = tk.BooleanVar(value=controller.is_manual)
+    manual_check = tk.Checkbutton(
+        left_frame,
+        text="手动模式",
+        font=("Microsoft YaHei", 12),
+        bg="#f0f4f7",
+        variable=manual_var,
+        command=lambda: on_manual_toggle(manual_var, controller)
+    )
+    manual_check.pack(anchor="w", pady=5)
+
     # 日志区
     right_frame = tk.Frame(root, bg="#ffffff")
     right_frame.grid(row=0, column=1, sticky="nswe", padx=20, pady=20)
@@ -122,6 +138,7 @@ def start_gui():
         command=lambda: on_close(root)
     )
     quit_btn.pack(side="left", padx=10)
+    
 
     # 网格布局调整
     root.grid_rowconfigure(0, weight=1)
