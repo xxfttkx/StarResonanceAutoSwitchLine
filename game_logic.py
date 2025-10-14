@@ -92,14 +92,14 @@ def wait_and_teleport(win, place):
     if not place:
         return
     key = place_to_key(place)
-    wait_black(win,5,15,1)
+    wait_black(win,5,30,1)
     log("到达位置，将再次传送修正位置")
     ensure_window_active(win)
     keyboard.press_and_release(key)
 
 def wait_and_tp(win, place=None):
     if place:
-        wait_black(win,10,25,2)
+        wait_black(win,10,40,2)
         ensure_window_active(win)
         log("即将前往位置: " + place)
         key = place_to_key(place)
