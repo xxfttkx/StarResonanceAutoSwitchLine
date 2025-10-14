@@ -25,9 +25,6 @@ def handle_input(text, controller):
     log(f"收到输入: {text}")
     line, place = parse_line_place(text)
     log(f"line: {line}; place: {place}")
-    controller.switch_open_auto_switch_line()
-    # controller.task = asyncio.create_task(controller.switch_line(line, place))
-    # asyncio.run(controller.switch_line(line, place))
     threading.Thread(target=lambda: asyncio.run(controller.switch_line(line, place)), daemon=True).start()
 
 def on_close(root):
@@ -42,7 +39,7 @@ def reset_pigs(controller):
     controller.reset_pigs()
 
 def stop_task(controller):
-    controller.stop_task()
+    controller.stop_switching_thread()
 
 def on_manual_toggle(var, controller):
     controller.is_manual = var.get()

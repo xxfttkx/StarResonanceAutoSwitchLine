@@ -68,8 +68,7 @@ async def listen(controller, stop_event=None):
                             controller.deal_with_msg(message)
                             if not controller.is_manual and not controller.is_hunting:
                                 controller.cal_next_pig()
-                                if controller.next_pig and controller.auto_switch:
-                                    controller.is_hunting = True
+                                if controller.next_pig :
                                     line, pos = controller.next_pig
                                     controller.task = asyncio.create_task(controller.switch_line(line, pos))
 
@@ -84,8 +83,6 @@ async def listen(controller, stop_event=None):
 
 if __name__ == "__main__":
     controller = AutoSwitchLineController(find_target_window())
-    keyboard.add_hotkey('-', controller.switch_open_auto_switch_line)
-    keyboard.add_hotkey('*', controller.switch_close_auto_switch_line)
     keyboard.add_hotkey('+', controller.reset_place)
     # 注册退出清理
     atexit.register(keyboard.unhook_all)

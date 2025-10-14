@@ -7,15 +7,11 @@ import game_logic
 class AutoSwitchLineController:
     def __init__(self, target_window):
         self.target_window = target_window
-        self.auto_switch = False
-        # self.switch_open_auto_switch_line()
         self.first_failed = True
         self.place = None
         self.enemy_listener = EnemyListener(["小猪·闪闪"], self.on_monster_dead)
         self.is_hunting = False
         self.hunting_lock = asyncio.Lock()
-
-        self.auto_switch_lock = threading.Lock()
 
         self.curr_pig = None
         self.next_pig = None
@@ -24,6 +20,7 @@ class AutoSwitchLineController:
         self.last_time = 0
 
         self.is_manual = False
+        self.is_manual = True
         self.strat = 'none'  # 'current' or 'none' or 'manual'
 
         self.lock = False
@@ -101,7 +98,6 @@ class AutoSwitchLineController:
         if not self.is_hunting and not self.lock:
             self.lock = True
             log("监听到小猪闪闪死亡，等待新的情报")
-            self.switch_open_auto_switch_line()
             if self.is_manual:
                 log("手动模式，等待手动重置小猪状态")
                 return
@@ -116,12 +112,6 @@ class AutoSwitchLineController:
                 line, place = self.next_pig
                 log(f"准备切换到线路 {line} 位置 {place}")
                 self.task = asyncio.create_task(self.switch_line(line, place))
-
-    def stop_task(self):
-        if hasattr(self, 'task') and self.task and not self.task.done():
-            self.task.cancel()
-            log("已取消当前切线任务")
-        self.auto_switch = False
     
     def reset_place(self):
         self.place = None
@@ -149,40 +139,39 @@ class AutoSwitchLineController:
                     self.target_window = find_target_window()
         return False
 
-    async def switch_line(self, target_line, target_place = None):
-        """切换线路"""
-        async with self.hunting_lock:  # 🔒 异步锁开始
-            if not self.auto_switch:
-                log(f"非自动切线模式，不切线")
-                return
-            self.is_hunting = True
-            self.lock = False
-            log(f"自动切线模式，准备切换到线路 {target_line}")
-            self.auto_switch = False
+    def start_switching(self, target_line, target_place=None):
+        """启动同步切线，确保只有一个线程在执行切线操作"""
+        if self.task is not None and self.task.is_alive():
+            log("已有切线操作正在进行，无法启动新的切线")
+            return
+        self.stop_switching = False  # 确保没有停止标志
+        self.task = threading.Thread(target=self.switch_line, args=(target_line, target_place))
+        self.task.start()
+    
+    def stop_switching_thread(self):
+        """停止切线操作"""
+        self.stop_switching = True
+        log("切线操作已请求停止")
 
+        # 等待线程结束
+        if self.task is not None:
+            self.task.join()
+            log("切线操作线程已停止")
+
+    def switch_line(self, target_line, target_place=None):
+        """切换线路"""
+        with self.hunting_lock:  # 🔒 使用同步锁来确保线程安全
+            log(f"自动追踪，目标：{target_line }{target_place if target_place else 'None'}")
             if self.ensure_window_active():
                 try:
                     self.curr_pig = (target_line, target_place)
                     if self.place == target_place:
                         target_place = None
-                    await asyncio.to_thread(game_logic.switch_line, self.target_window, target_line, target_place)
+                    game_logic.switch_line(self.target_window, target_line, target_place)
                     if target_place:
                         self.set_place(target_place)
-                    self.is_hunting = False
                 except Exception as e:
-                    log(f"热键执行失败: {e}")
-
-    def switch_auto_switch_line(self):
-        self.auto_switch = not self.auto_switch
-        log(f"自动切线状态切换为: {'开启' if self.auto_switch else '关闭'}")
-    
-    def switch_open_auto_switch_line(self):
-        if not self.auto_switch:
-            self.switch_auto_switch_line()
-    
-    def switch_close_auto_switch_line(self):
-        if self.auto_switch:
-            self.switch_auto_switch_line()
+                    log(f"切线执行失败: {e}")
 
     def exit_program(self):
         log("检测到 / 键，退出程序")
