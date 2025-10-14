@@ -25,6 +25,9 @@ def handle_input(text, controller):
     log(f"收到输入: {text}")
     line, place = parse_line_place(text)
     log(f"line: {line}; place: {place}")
+    if not line or not place:
+        log("输入格式错误，应为 '线路号 位置'，例如 '2右'")
+        return
     controller.start_switching(line, place)
 
 def on_close(root):
@@ -85,7 +88,7 @@ def start_gui():
 
     btn2 = tk.Button(
         button_frame,
-        text="停止行动并停止自动",
+        text="停止行动且切换手动",
         font=("Microsoft YaHei", 12),
         width=15,
         height=2,

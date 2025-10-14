@@ -153,7 +153,7 @@ class AutoSwitchLineController:
         """停止切线操作"""
         self.stop_switching = True
         log("切线操作已请求停止")
-
+        self.is_manual = True
         # 等待线程结束
         if self.task is not None:
             self.task.join()
