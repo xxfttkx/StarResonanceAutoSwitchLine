@@ -102,8 +102,9 @@ class AutoSwitchLineController:
             log("监听到小猪闪闪死亡")
             if self.curr_pig:
                 for state in self.states:
-                    if state[0] == self.curr_pig[0] and state[1] == self.curr_pig[1]:
+                    if state[0] == self.curr_pig[0]:
                         state[2] = 's'
+                        log(f"更新小猪状态: {self.curr_pig[0]}{self.curr_pig[1]} -> ❌")
                         break
             if self.is_manual:
                 log("手动模式中，不自动杀猪")
