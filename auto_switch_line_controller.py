@@ -98,6 +98,7 @@ class AutoSwitchLineController:
     async def on_monster_dead(self):
         if self.is_hunting and self.wait_pig_die:
             self.wait_pig_die = False
+            self.is_hunting = False
             log("监听到小猪闪闪死亡")
             if self.curr_pig:
                 for state in self.states:
@@ -161,6 +162,7 @@ class AutoSwitchLineController:
     def switch_line(self, target_line, target_place=None):
         """切换线路"""
         with self.hunting_lock:  # 🔒 使用同步锁来确保线程安全
+            self.is_hunting = True
             if self.curr_pig:
                 target_place = self.curr_pig[1]==target_place and None or target_place
             log(f"自动追踪，目标：{target_line }{target_place if target_place else 'None'}")
