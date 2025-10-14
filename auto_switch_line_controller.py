@@ -160,8 +160,8 @@ class AutoSwitchLineController:
         log("切线操作已请求停止")
         # 等待线程结束
         if self.task is not None:
-            self.task.join()
-            log("切线操作线程已停止")
+            # self.task.cancel()
+            log_error("切线操作线程无法停止")
 
     def switch_line(self, target_line, target_place=None):
         """切换线路"""
