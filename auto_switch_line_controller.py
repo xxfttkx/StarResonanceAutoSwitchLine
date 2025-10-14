@@ -146,6 +146,9 @@ class AutoSwitchLineController:
         if self.task is not None and self.task.is_alive():
             log("已有切线操作正在进行，无法启动新的切线")
             return
+        if self.is_hunting or self.wait_pig_die:
+            log("当前正在追踪小猪，无法启动新的切线")
+            return
         self.stop_switching = False  # 确保没有停止标志
         self.task = threading.Thread(target=self.switch_line, args=(target_line, target_place))
         self.task.start()
