@@ -23,7 +23,7 @@ class AutoSwitchLineController:
         self.is_manual = True
         self.strat = 'none'  # 'current' or 'none' or 'manual'
 
-        self.lock = False
+        self.wait_pig_die = False
         self.task = None
 
     def reset_pigs(self):
@@ -96,11 +96,11 @@ class AutoSwitchLineController:
         
                     
     async def on_monster_dead(self):
-        if not self.is_hunting and not self.lock:
-            self.lock = True
-            log("监听到小猪闪闪死亡，等待新的情报")
+        if self.is_hunting and self.wait_pig_die:
+            self.wait_pig_die = False
+            log("监听到小猪闪闪死亡")
             if self.is_manual:
-                log("手动模式，等待手动重置小猪状态")
+                log("手动模式中，不自动杀猪")
                 return
             await asyncio.sleep(1)
             if self.curr_pig:
@@ -111,7 +111,7 @@ class AutoSwitchLineController:
             self.cal_next_pig()
             if self.next_pig:
                 line, place = self.next_pig
-                log(f"准备切换到线路 {line} 位置 {place}")
+                log(f"准备去往： {line}{place}")
                 self.start_switching(line, place)
     
     def reset_place(self):
@@ -162,15 +162,18 @@ class AutoSwitchLineController:
     def switch_line(self, target_line, target_place=None):
         """切换线路"""
         with self.hunting_lock:  # 🔒 使用同步锁来确保线程安全
+            if self.curr_pig:
+                target_place = self.curr_pig[1]==target_place and None or target_place
             log(f"自动追踪，目标：{target_line }{target_place if target_place else 'None'}")
             if self.ensure_window_active():
                 try:
                     self.curr_pig = (target_line, target_place)
                     if self.place == target_place:
                         target_place = None
-                    game_logic.switch_line(self.target_window, target_line, target_place)
                     if target_place:
                         self.set_place(target_place)
+                    game_logic.switch_line(self.target_window, target_line, target_place)
+                    self.wait_pig_die = True
                 except Exception as e:
                     log(f"切线执行失败: {e}")
 
