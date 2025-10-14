@@ -171,8 +171,8 @@ def start_gui():
 
     # 注册热键
     keyboard.add_hotkey('+', controller.reset_place)
-    keyboard.add_hotkey('-', open_manual_mode, args=(manual_var, controller))
-    keyboard.add_hotkey('*', close_manual_mode, args=(manual_var, controller))
+    keyboard.add_hotkey('-', close_manual_mode, args=(manual_var, controller))
+    keyboard.add_hotkey('*', open_manual_mode, args=(manual_var, controller))
 
     # 启动异步监听线程
     threading.Thread(target=lambda: asyncio.run(listen(controller, stop_event)), daemon=True).start()
