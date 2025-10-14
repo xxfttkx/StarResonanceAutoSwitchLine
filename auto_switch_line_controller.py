@@ -99,15 +99,15 @@ class AutoSwitchLineController:
         if self.is_hunting and self.wait_pig_die:
             self.wait_pig_die = False
             log("监听到小猪闪闪死亡")
-            if self.is_manual:
-                log("手动模式中，不自动杀猪")
-                return
-            await asyncio.sleep(1)
             if self.curr_pig:
                 for state in self.states:
                     if state[0] == self.curr_pig[0] and state[1] == self.curr_pig[1]:
                         state[2] = 's'
                         break
+            if self.is_manual:
+                log("手动模式中，不自动杀猪")
+                return
+            await asyncio.sleep(1)
             self.cal_next_pig()
             if self.next_pig:
                 line, place = self.next_pig
@@ -172,6 +172,7 @@ class AutoSwitchLineController:
                     if target_place:
                         self.set_place(target_place)
                     game_logic.switch_line(self.target_window, target_line, target_place)
+                    log(f"到达位置，等待猪猪死去...")
                     self.wait_pig_die = True
                 except Exception as e:
                     log(f"切线执行失败: {e}")
