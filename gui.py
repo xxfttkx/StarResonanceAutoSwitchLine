@@ -25,7 +25,7 @@ def handle_input(text, controller):
     log(f"收到输入: {text}")
     line, place = parse_line_place(text)
     log(f"line: {line}; place: {place}")
-    threading.Thread(target=lambda: asyncio.run(controller.switch_line(line, place)), daemon=True).start()
+    controller.start_switching(line, place)
 
 def on_close(root):
     """退出程序时调用"""
@@ -158,8 +158,6 @@ def start_gui():
     root.grid_columnconfigure(1, weight=2)
 
     # 注册热键
-    keyboard.add_hotkey('-', controller.switch_open_auto_switch_line)
-    keyboard.add_hotkey('*', controller.switch_close_auto_switch_line)
     keyboard.add_hotkey('+', controller.reset_place)
 
     # 启动异步监听线程

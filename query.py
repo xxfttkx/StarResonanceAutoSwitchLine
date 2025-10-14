@@ -70,7 +70,7 @@ async def listen(controller, stop_event=None):
                                 controller.cal_next_pig()
                                 if controller.next_pig :
                                     line, pos = controller.next_pig
-                                    controller.task = asyncio.create_task(controller.switch_line(line, pos))
+                                    controller.start_switching(line, pos)
 
         except Exception as e:
             if stop_event.is_set():

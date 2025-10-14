@@ -11,7 +11,7 @@ class AutoSwitchLineController:
         self.place = None
         self.enemy_listener = EnemyListener(["小猪·闪闪"], self.on_monster_dead)
         self.is_hunting = False
-        self.hunting_lock = asyncio.Lock()
+        self.hunting_lock = threading.Lock()
 
         self.curr_pig = None
         self.next_pig = None
@@ -24,6 +24,7 @@ class AutoSwitchLineController:
         self.strat = 'none'  # 'current' or 'none' or 'manual'
 
         self.lock = False
+        self.task = None
 
     def reset_pigs(self):
         # self.stop_task()
@@ -111,7 +112,7 @@ class AutoSwitchLineController:
             if self.next_pig:
                 line, place = self.next_pig
                 log(f"准备切换到线路 {line} 位置 {place}")
-                self.task = asyncio.create_task(self.switch_line(line, place))
+                self.start_switching(line, place)
     
     def reset_place(self):
         self.place = None
