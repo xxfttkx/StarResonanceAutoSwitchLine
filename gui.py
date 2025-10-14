@@ -41,9 +41,10 @@ def on_close(root):
 def reset_pigs(controller):
     controller.reset_pigs()
 
-def stop_task(controller):
+def stop_task(controller, manual_var):
+    open_manual_mode(manual_var, controller)
     controller.stop_switching_thread()
-
+    
 def on_manual_toggle(var, controller):
     controller.is_manual = var.get()
     log(f"手动模式切换为: {controller.is_manual}")
@@ -51,6 +52,14 @@ def on_manual_toggle(var, controller):
 def update_strat(controller, value):
     controller.strat = value
     log(f"当前策略 strat = {controller.strat}")
+
+def open_manual_mode(manual_var, controller):
+    manual_var.set(True)
+    on_manual_toggle(manual_var, controller)
+
+def close_manual_mode(manual_var, controller):
+    manual_var.set(False)
+    on_manual_toggle(manual_var, controller)
 
 def start_gui():
     controller = AutoSwitchLineController(find_target_window())
@@ -95,7 +104,7 @@ def start_gui():
         bg="#4CAF50",
         fg="white",
         relief="flat",
-        command=lambda: stop_task(controller=controller)
+        command=lambda: stop_task(controller=controller, manual_var=manual_var)
     )
     btn2.pack(side="left", padx=5)
 
@@ -162,6 +171,8 @@ def start_gui():
 
     # 注册热键
     keyboard.add_hotkey('+', controller.reset_place)
+    keyboard.add_hotkey('-', open_manual_mode, args=(manual_var, controller))
+    keyboard.add_hotkey('*', close_manual_mode, args=(manual_var, controller))
 
     # 启动异步监听线程
     threading.Thread(target=lambda: asyncio.run(listen(controller, stop_event)), daemon=True).start()
