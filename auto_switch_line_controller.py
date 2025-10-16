@@ -25,6 +25,7 @@ class AutoSwitchLineController:
 
         self.wait_pig_die = False
         self.task = None
+        self.stop_event = threading.Event()
 
     def reset_pigs(self):
         # self.stop_task()
@@ -150,18 +151,17 @@ class AutoSwitchLineController:
         if self.is_hunting or self.wait_pig_die:
             log("当前正在追踪小猪，无法启动新的切线")
             return
-        self.stop_switching = False  # 确保没有停止标志
+        self.stop_event.clear()  # ✅ 清除停止标志
         self.task = threading.Thread(target=self.switch_line, args=(target_line, target_place))
         self.task.start()
     
     def stop_switching_thread(self):
         """停止切线操作"""
-        self.stop_switching = True
-        log("切线操作已请求停止")
-        # 等待线程结束
-        if self.task is not None:
-            # self.task.cancel()
-            log_error("切线操作线程无法停止")
+        if self.task is None or not self.task.is_alive():
+            log("没有线程在运行")
+            return
+        self.stop_event.set()
+        log("停止信号已发送")
 
     def switch_line(self, target_line, target_place=None):
         """切换线路"""
@@ -177,7 +177,7 @@ class AutoSwitchLineController:
                         target_place = None
                     if target_place:
                         self.set_place(target_place)
-                    game_logic.switch_line(self.target_window, target_line, target_place)
+                    game_logic.switch_line(self.target_window, target_line, target_place, stop_event=self.stop_event)
                     log(f"到达位置，等待猪猪死去...")
                     self.wait_pig_die = True
                 except Exception as e:

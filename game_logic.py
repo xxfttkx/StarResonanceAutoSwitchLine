@@ -4,7 +4,7 @@ import pyautogui
 import time
 from record import replay
 
-def switch_line(win, line, place=None):
+def switch_line(win, line, place=None, stop_event=None):
     """激活窗口并切换线路"""
     try:
         # 点击线路输入框（根据实际位置修改）
@@ -18,9 +18,21 @@ def switch_line(win, line, place=None):
         # 按回车确认
         pyautogui.press('enter')
         log(f"正在切换到线路 {line}")
+        if stop_event and stop_event.is_set():
+            log("切线操作被中止")
+            return
         wait_and_tp(win, place)
+        if stop_event and stop_event.is_set():
+            log("切线操作被中止")
+            return
         wait_and_teleport(win, place)
+        if stop_event and stop_event.is_set():
+            log("切线操作被中止")
+            return
         wait_and_move(win, place)
+        if stop_event and stop_event.is_set():
+            log("切线操作被中止")
+            return
         start_attack()
     except Exception as e:
         log(f"switch_line failed:{e}")
