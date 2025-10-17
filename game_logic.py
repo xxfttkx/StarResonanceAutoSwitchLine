@@ -92,15 +92,13 @@ def place_to_key(place):
         return 'f5'
     elif place == "麦田" or place == "山金":
         return 'f9'
-    elif place == "卡":
+    elif place == "卡" or place == "沙金":
         return 'f11'
     elif place == "驿站":
         return 'f8'
     elif place == "帐篷" or place == "斥金":
         return 'f7'
     elif place == "冰金":
-        return None
-    elif place == "沙金":
         return None
     elif place == "废金":
         return None
@@ -141,20 +139,24 @@ def wait_and_move(win, place=None):
     log("到达位置，开始移动")
     if place:
         if place == "卡":
-            replay("records/jinzhu/record_ka.json")
+            replay("records/jinzhu/ka.json")
         elif place == "麦田":
-            replay("records/jinzhu/record_m.json")
+            replay("records/jinzhu/m.json")
         elif place == "崖之遗迹":
-            replay("records/jinzhu/record_y.json")
+            replay("records/jinzhu/y.json")
         elif place == "左上":
-            replay("records/jinzhu/record_z.json")
+            replay("records/jinzhu/z.json")
         elif place == "右上":
-            replay("records/jinzhu/record_ys.json")
+            replay("records/jinzhu/ys.json")
         elif place == "右":
-            replay("records/jinzhu/record_you.json")
+            replay("records/jinzhu/you.json")
         elif place == "帐篷":
-            replay("records/jinzhu/record_zp.json")
+            replay("records/jinzhu/zp.json")
         elif place == "驿站":
-            replay("records/jinzhu/record_yz.json")
+            replay("records/jinzhu/yz.json")
         elif place == "山金":
-            replay("records/jinna/record_shanjin.json")
+            replay("records/jinna/shanjin.json")
+        elif place == "斥金":
+            replay("records/jinna/chijin.json")
+        elif place == "沙金":
+            replay("records/jinna/shajin.json")
