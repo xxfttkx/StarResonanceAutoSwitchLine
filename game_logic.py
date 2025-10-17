@@ -90,7 +90,7 @@ def place_to_key(place):
         return 'f10'
     elif place == "崖之遗迹":
         return 'f5'
-    elif place == "麦田":
+    elif place == "麦田" or place == "山金":
         return 'f9'
     elif place == "卡":
         return 'f11'
@@ -148,3 +148,5 @@ def wait_and_move(win, place=None):
             replay("records/record_zp.json")
         elif place == "驿站":
             replay("records/record_yz.json")
+        elif place == "山金":
+            replay("records/jinna/record_shanjin.json")
