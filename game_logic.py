@@ -86,24 +86,18 @@ def wait_black(win, delay_start, timeout, delay_judge):
     log("黑屏结束")
 
 def place_to_key(place):
-    if place in {"左上","右上","右"}:
+    if place in {"左上","右上","右"} or place == "废金":
         return 'f10'
-    elif place == "崖之遗迹":
+    elif place == "崖之遗迹" or place == "冰金":
         return 'f5'
     elif place == "麦田" or place == "山金":
         return 'f9'
     elif place == "卡" or place == "沙金":
         return 'f11'
-    elif place == "驿站":
+    elif place == "驿站" or place == "姆金":
         return 'f8'
     elif place == "帐篷" or place == "斥金":
         return 'f7'
-    elif place == "冰金":
-        return None
-    elif place == "废金":
-        return None
-    elif place == "姆金":
-        return None
     return None
 
 def wait_and_teleport(win, place):
@@ -160,3 +154,9 @@ def wait_and_move(win, place=None):
             replay("records/jinna/chijin.json")
         elif place == "沙金":
             replay("records/jinna/shajin.json")
+        elif place == "冰金":
+            replay("records/jinna/bingjin.json")
+        elif place == "废金":
+            replay("records/jinna/feijin.json")
+        elif place == "姆金":
+            replay("records/jinna/mujin.json")

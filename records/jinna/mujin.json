@@ -1,0 +1,248 @@
+[
+  {
+    "type": "key",
+    "event": "up",
+    "name": "f1",
+    "time": 0.08134865760803223
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "g",
+    "time": 1.4809653759002686
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "g",
+    "time": 1.6242144107818604
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "2",
+    "time": 3.4809014797210693
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "2",
+    "time": 3.608616590499878
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "g",
+    "time": 4.024751901626587
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "g",
+    "time": 4.16087532043457
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "g",
+    "time": 4.464215278625488
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "g",
+    "time": 4.592270612716675
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "a",
+    "time": 5.448397874832153
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "a",
+    "time": 5.956925630569458
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "a",
+    "time": 5.98857855796814
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "a",
+    "time": 6.0172059535980225
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "space",
+    "time": 6.0246546268463135
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "space",
+    "time": 6.184371709823608
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "space",
+    "time": 8.304773330688477
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "space",
+    "time": 8.432210445404053
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "space",
+    "time": 10.040638208389282
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "space",
+    "time": 10.12822413444519
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "s",
+    "time": 11.336400747299194
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "s",
+    "time": 11.850838899612427
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "s",
+    "time": 11.883008480072021
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "s",
+    "time": 11.913585901260376
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "s",
+    "time": 11.943965435028076
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "s",
+    "time": 11.952237367630005
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "s",
+    "time": 12.552258014678955
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "space",
+    "time": 12.744510173797607
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "space",
+    "time": 12.920213460922241
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "s",
+    "time": 12.97637939453125
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "a",
+    "time": 13.904578924179077
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "d",
+    "time": 14.760300159454346
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "d",
+    "time": 14.840266942977905
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "a",
+    "time": 15.344407558441162
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "a",
+    "time": 15.464417934417725
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "a",
+    "time": 15.680442571640015
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "a",
+    "time": 15.800431966781616
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "s",
+    "time": 16.320205688476562
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "d",
+    "time": 16.49623990058899
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "s",
+    "time": 16.600380659103394
+  },
+  {
+    "type": "key",
+    "event": "up",
+    "name": "d",
+    "time": 16.656382083892822
+  },
+  {
+    "type": "key",
+    "event": "down",
+    "name": "f3",
+    "time": 17.744719743728638
+  }
+]
