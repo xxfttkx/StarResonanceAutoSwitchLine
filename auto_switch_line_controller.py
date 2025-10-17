@@ -16,23 +16,21 @@ class AutoSwitchLineController:
         self.curr_pig = None
         self.next_pig = None
         self.states = []
-
+        self.creatures = {} # map<name, list of (line,place,state)>
         self.last_time = 0
 
         self.is_manual = False
         self.is_manual = True
         self.strat = 'none'  # 'current' or 'none' or 'manual'
-
+        self.target_name = '小猪·闪闪' # '小猪·闪闪' or '小猪·闪闪·变异' or 'all' or '娜宝·闪闪'
         self.wait_pig_die = False
         self.task = None
         self.stop_event = threading.Event()
 
     def reset_pigs(self):
-        # self.stop_task()
         self.states = []
-        # self.reset_place()
-        # self.curr_pig = None
         self.next_pig = None
+        self.creatures.clear()
         log("重置小猪状态成功")
 
     def all_pig_dead(self):
@@ -81,6 +79,21 @@ class AutoSwitchLineController:
             self.next_pig = self.get_next_pig()
         log(f"计算得到下一只小猪为: {self.next_pig if self.next_pig else '无'}")
 
+    def deal_with_creatures(self, creatures, name):
+        if name not in self.creatures:
+            self.creatures[name] = []
+        old_len = len(self.creatures[name])
+        new_len = len(creatures)
+        if new_len == 0:
+            return
+        if new_len > old_len:
+            for line, place in creatures:
+                for s in self.creatures[name]:
+                    if s[0] == line and s[1] == place:
+                        break
+                else:
+                    self.creatures[name].append([line, place, 'a'])
+    
     def deal_with_msg(self, msg):
         results = parse_msg(msg)
         for line, place, state in results:
@@ -183,6 +196,10 @@ class AutoSwitchLineController:
                 except Exception as e:
                     log(f"切线执行失败: {e}")
 
+    def update_target(self, target_name):
+        self.target_name = target_name
+        log(f"更新目标为: {self.target_name}")
+        
     def exit_program(self):
         log("检测到 / 键，退出程序")
         os._exit(0)

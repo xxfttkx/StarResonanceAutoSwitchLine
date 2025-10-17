@@ -196,3 +196,124 @@ def parse_msg(msg: str):
             state = m.group(3) == '✅' and 'a' or 's'
             results.append((line_num, place, state))
     return results
+alias_map_pig = {
+            "z": "左上",
+            "zuo": "左上",
+            "侦察左": "左上",
+            "侦察左上": "左上",
+            "左": "左上",
+            "左上": "左上",
+            "ys": "右上",
+            "原神": "右上",
+            "侦察右上": "右上",
+            "右上": "右上",
+            "侦察右": "右",
+            "you": "右",
+            "右": "右",
+            "m": "麦田",
+            "mai": "麦田",
+            "麦": "麦田",
+            "麦田": "麦田",
+            "zp": "帐篷",
+            "帐篷": "帐篷",
+            "yz": "驿站",
+            "玉足": "驿站",
+            "驿站": "驿站",
+            "y": "崖之遗迹",
+            "ya": "崖之遗迹",
+            "牙": "崖之遗迹",
+            "崖": "崖之遗迹",
+            "遗迹": "崖之遗迹",
+            "崖之": "崖之遗迹",
+            "涯": "崖之遗迹",
+            "崖之遗迹": "崖之遗迹",
+            "k": "卡",
+            "ka": "卡",
+            "卡": "卡",
+            "卡尼曼": "卡",
+            "s": "s",
+            "假": "s",
+            "无": "s",
+            "没有": "s",
+            "死": "s",
+            "b": "b",
+            "爆满": "b",
+            "爆": "b",
+        }
+
+alias_map_jinna = {
+    "斥候金娜": "斥金",
+    "斥金": "斥金",
+    "冰魔金娜": "冰金",
+    "冰金": "冰金",
+    "火魔金娜": "沙金",
+    "沙滩金娜": "沙金",
+    "沙金": "沙金",
+    "山贼金娜": "山金",
+    "山金": "山金",
+    "废都金娜": "废金",
+    "废金": "废金",
+}
+    
+def parse_train(msg: str):
+    alias_map = alias_map_jinna
+    pattern = re.compile(r"^(\d+)\s*([A-Za-z]+|[\u4e00-\u9fff]+)$")
+    res = []
+    # 忽略图片 CQ 码
+    msg = re.sub(r"\[CQ:image[^\]]*\]", "", msg).strip()
+    # 忽略指定关键词
+    ignore_words = ['一手', '1手', '金猪', "世界"]
+    ignore_pattern = re.compile("|".join(map(re.escape, ignore_words)))
+    msg = re.sub(ignore_pattern, "", msg).strip()
+    msg = msg.strip()
+    # 分割 token，可以拆开空格、制表符、以及'-'，保留数字+字母组合
+    tokens = re.split(r"[- \t]+", msg)
+    if len(tokens) > 1:
+        left = 0
+        right = 0
+        length = len(tokens)
+        while right < length:
+            token = tokens[right]
+            if token.isdigit():
+                right += 1
+                continue
+            text = ''
+            if token.lower() in alias_map:
+                text = alias_map[token.lower()]
+            else:
+                match = pattern.match(token)
+                if match:
+                    number = match.group(1)   # 数字部分
+                    line = int(number)
+                    text = match.group(2).lower()     # 英文或中文部分
+            if text and text in alias_map:
+                for t in tokens[left:right+1]:
+                    if t.isdigit():
+                        line = int(t)
+                        if line > 0 and line <= 200:
+                            pos = alias_map[text]
+                            res.append(processLineAndPos(line, pos))
+                    else:
+                        res.append(processMsg(t))
+            left = right+1    
+            right += 1
+                
+    return res
+        
+    
+def processMsg(msg):
+    alias_map = alias_map_jinna
+    pattern = re.compile(r"^(\d+)\s*([A-Za-z]+|[\u4e00-\u9fff]+)$")
+    match = pattern.match(msg)
+    if match:
+        number = match.group(1)   # 数字部分
+        line = int(number)
+        if line<=0 or line>200:
+            return None
+        text = match.group(2).lower()     # 英文或中文部分
+        if not text or text not in alias_map:
+            return None
+        return processLineAndPos(line, alias_map[text])
+
+def processLineAndPos(line: int, pos: str):
+    return (line, pos)

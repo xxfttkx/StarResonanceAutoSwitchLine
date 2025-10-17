@@ -71,6 +71,15 @@ async def listen(controller, stop_event=None):
                                 if controller.next_pig :
                                     line, pos = controller.next_pig
                                     controller.start_switching(line, pos)
+                        if group_id == 875329843:
+                            creatures = parse_train(message)
+                            creatures = [c for c in creatures if c]
+                            if creatures and creatures:
+                                for c in creatures:
+                                    if c in ['闪闪']:
+                                        pass
+                                        break
+                            pass
 
         except Exception as e:
             if stop_event.is_set():

@@ -53,6 +53,10 @@ def update_strat(controller, value):
     controller.strat = value
     log(f"当前策略 strat = {controller.strat}")
 
+def update_target(controller, value):
+    controller.update_target(value)
+    log(f"当前 target = {controller.target_name}")
+
 def open_manual_mode(manual_var, controller):
     manual_var.set(True)
     on_manual_toggle(manual_var, controller)
@@ -131,6 +135,18 @@ def start_gui():
     strat_menu = tk.OptionMenu(strat_frame, strat_var, *strat_options, command=lambda val: update_strat(controller, val))
     strat_menu.config(font=("Microsoft YaHei", 12))
     strat_menu.pack(side="left", padx=10)
+
+    # ✅ target 选择框
+    target_frame = tk.Frame(left_frame, bg="#f0f4f7")
+    target_frame.pack(anchor="w", pady=(5, 10))
+
+    tk.Label(target_frame, text="选择追踪目标：", font=("Microsoft YaHei", 12), bg="#f0f4f7").pack(side="left")
+
+    target_var = tk.StringVar(value=controller.target_name)
+    target_options = ['小猪·闪闪', '小猪·闪闪·变异','娜宝·闪闪', 'all']
+    target_menu = tk.OptionMenu(target_frame, target_var, *target_options, command=lambda val: update_target(controller, val))
+    target_menu.config(font=("Microsoft YaHei", 12))
+    target_menu.pack(side="left", padx=10)
 
     # 日志区
     right_frame = tk.Frame(root, bg="#ffffff")
