@@ -96,8 +96,16 @@ def place_to_key(place):
         return 'f11'
     elif place == "驿站":
         return 'f8'
-    elif place == "帐篷":
+    elif place == "帐篷" or place == "斥金":
         return 'f7'
+    elif place == "冰金":
+        return None
+    elif place == "沙金":
+        return None
+    elif place == "废金":
+        return None
+    elif place == "姆金":
+        return None
     return None
 
 def wait_and_teleport(win, place):
