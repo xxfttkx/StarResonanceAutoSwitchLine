@@ -62,7 +62,7 @@ async def listen(controller, stop_event=None):
                         user_id  = data.get("user_id")
                         message  = data.get("raw_message")
 
-                        if user_id == TARGET_USER and group_id == TARGET_GROUP:
+                        if controller.is_target("小猪·闪闪") and user_id == TARGET_USER and group_id == TARGET_GROUP:
                             log(f"收到消息: {message}")
                             # parsed = parse_messages(message)
                             controller.deal_with_msg(message)
@@ -71,15 +71,9 @@ async def listen(controller, stop_event=None):
                                 if controller.next_pig :
                                     line, pos = controller.next_pig
                                     controller.start_switching(line, pos)
-                        if group_id == 875329843:
+                        if controller.is_target("娜宝·闪闪") and group_id == 875329843:
                             creatures = parse_train(message)
-                            creatures = [c for c in creatures if c]
-                            if creatures and creatures:
-                                for c in creatures:
-                                    if c in ['闪闪']:
-                                        pass
-                                        break
-                            pass
+                            controller.deal_with_creatures(creatures, "娜宝·闪闪")
 
         except Exception as e:
             if stop_event.is_set():

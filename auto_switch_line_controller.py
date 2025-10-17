@@ -113,7 +113,7 @@ class AutoSwitchLineController:
         if self.is_hunting and self.wait_pig_die:
             self.wait_pig_die = False
             self.is_hunting = False
-            log("监听到小猪闪闪死亡")
+            log("监听到 ? 死亡")
             if self.curr_pig:
                 for state in self.states:
                     if state[0] == self.curr_pig[0]:
@@ -124,11 +124,18 @@ class AutoSwitchLineController:
                 log("手动模式中，不自动杀猪")
                 return
             await asyncio.sleep(1)
-            self.cal_next_pig()
-            if self.next_pig:
-                line, place = self.next_pig
-                log(f"准备去往： {line}{place}")
-                self.start_switching(line, place)
+            if self.target_name == "娜宝·闪闪":
+                ls = self.creatures.get("娜宝·闪闪", [])
+                if ls:
+                    found = False
+                    curr_line, curr_place = self.curr_pig
+                    pass
+            else:
+                self.cal_next_pig()
+                if self.next_pig:
+                    line, place = self.next_pig
+                    log(f"准备去往： {line}{place}")
+                    self.start_switching(line, place)
     
     def reset_place(self):
         self.place = None
@@ -196,10 +203,18 @@ class AutoSwitchLineController:
                 except Exception as e:
                     log(f"切线执行失败: {e}")
 
+    def is_target(self, name):
+        return self.target_name == name or self.target_name == 'all'
+
     def update_target(self, target_name):
         self.target_name = target_name
+        if self.enemy_listener:
+            if target_name == 'all':
+                self.enemy_listener.set_target_group(["小猪·闪闪", "小猪·闪闪·变异", "娜宝·闪闪"])
+            else:
+                self.enemy_listener.set_target_group([target_name])
         log(f"更新目标为: {self.target_name}")
-        
+
     def exit_program(self):
         log("检测到 / 键，退出程序")
         os._exit(0)
