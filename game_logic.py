@@ -141,20 +141,20 @@ def wait_and_move(win, place=None):
     log("到达位置，开始移动")
     if place:
         if place == "卡":
-            replay("records/record_ka.json")
+            replay("records/jinzhu/record_ka.json")
         elif place == "麦田":
-            replay("records/record_m.json")
+            replay("records/jinzhu/record_m.json")
         elif place == "崖之遗迹":
-            replay("records/record_y.json")
+            replay("records/jinzhu/record_y.json")
         elif place == "左上":
-            replay("records/record_z.json")
+            replay("records/jinzhu/record_z.json")
         elif place == "右上":
-            replay("records/record_ys.json")
+            replay("records/jinzhu/record_ys.json")
         elif place == "右":
-            replay("records/record_you.json")
+            replay("records/jinzhu/record_you.json")
         elif place == "帐篷":
-            replay("records/record_zp.json")
+            replay("records/jinzhu/record_zp.json")
         elif place == "驿站":
-            replay("records/record_yz.json")
+            replay("records/jinzhu/record_yz.json")
         elif place == "山金":
             replay("records/jinna/record_shanjin.json")
