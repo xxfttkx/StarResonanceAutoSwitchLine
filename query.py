@@ -73,7 +73,13 @@ async def listen(controller, stop_event=None):
                                     controller.start_switching(line, pos)
                         if controller.is_target("娜宝·闪闪") and group_id == 875329843:
                             creatures = parse_train(message)
-                            controller.deal_with_creatures(creatures, "娜宝·闪闪")
+                            if creatures:
+                                log_error(f"收到娜宝·闪闪消息: {message}")
+                            if not controller.is_manual and not controller.is_hunting:
+                                if len(creatures) == 1:
+                                    line = creatures[0][0]
+                                    controller.start_switching(line, None)
+                            # controller.deal_with_creatures(creatures, "娜宝·闪闪")
 
         except Exception as e:
             if stop_event.is_set():

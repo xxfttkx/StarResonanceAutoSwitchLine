@@ -296,9 +296,15 @@ def parse_train(msg: str):
                             pos = alias_map[text]
                             res.append(processLineAndPos(line, pos))
                     else:
-                        res.append(processMsg(t))
+                        processed = processMsg(t)
+                        if processed:
+                            res.append(processed)
             left = right+1    
             right += 1
+    else:
+        processed = processMsg(msg)
+        if processed:
+            res.append(processed)
                 
     return res
         
