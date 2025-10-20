@@ -262,7 +262,8 @@ alias_map_jinna = {
     "姆金": "姆金",
     "姆": "姆金",
 }
-    
+
+alias_map = alias_map_pig | alias_map_jinna
 def parse_train(msg: str):
     alias_map = alias_map_jinna
     pattern = re.compile(r"^(\d+)\s*([A-Za-z]+|[\u4e00-\u9fff]+)$")
@@ -310,11 +311,9 @@ def parse_train(msg: str):
     else:
         processed = processMsg(msg)
         if processed:
-            res.append(processed)
-                
+            res.append(processed)            
     return res
         
-    
 def processMsg(msg):
     alias_map = alias_map_jinna
     pattern = re.compile(r"^(\d+)\s*([A-Za-z]+|[\u4e00-\u9fff]+)$")
@@ -331,3 +330,14 @@ def processMsg(msg):
 
 def processLineAndPos(line: int, pos: str):
     return (line, pos)
+
+def str_to_line_and_pos(str: str):
+    pattern = re.compile(r"^(\d+)([A-Za-z\u4e00-\u9fa5]+)$")
+    match = pattern.match(str.strip())
+    if match:
+        line = int(match.group(1))
+        pos = match.group(2)
+        pos = alias_map.get(pos.lower(), pos)
+        if pos:
+            return (line, pos)
+    return None

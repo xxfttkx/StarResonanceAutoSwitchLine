@@ -26,6 +26,7 @@ def on_input_enter(event, controller):
 def handle_input(text, controller):
     log(f"收到输入: {text}")
     line, place = parse_line_place(text)
+    line, place = str_to_line_and_pos(text)
     log(f"line: {line}; place: {place}")
     if not line or not place:
         log("输入格式错误，应为 '线路号 位置'，例如 '2右'")
